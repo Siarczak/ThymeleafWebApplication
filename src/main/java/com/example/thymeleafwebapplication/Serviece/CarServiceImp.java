@@ -3,6 +3,8 @@ package com.example.thymeleafwebapplication.Serviece;
 import com.example.thymeleafwebapplication.Model.Car;
 import com.example.thymeleafwebapplication.Model.CarList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +25,13 @@ public class CarServiceImp implements CarService{
         this.carList = carList;
     }
 
+    @EventListener(ApplicationReadyEvent.class)
+    public void prepareListOfCars(){
+
+        carList.getCars();
+
+    }
+
     @Override
     public List<Car> getCars() {
         return carList.getCars();
@@ -38,50 +47,6 @@ public class CarServiceImp implements CarService{
     }
 
     @Override
-    public boolean modifiedCar( Car car) {
-        Optional<Car> carToModify = getCarById(car.getId());
-        if(carToModify.isPresent())
-        {
-            carList.getCars().remove(carToModify.get());
-            Car modifiedCar = new Car(car.getBrand(),car.getModel());
-
-
-            return carList.getCars().add(modifiedCar);
-
-
-        }
-        else
-            return false;
-    }
-
-    @Override
-    public boolean removedCar(long id) {
-
-        Optional<Car> carToRemove = getCarById(id);
-        return carToRemove.map(car -> carList.getCars().remove(car))
-                .orElse(false);
-
-//       Optional<Car> carToRemove = carList.getCars()
-//               .stream()
-//               .filter(car -> car.getId() == id)
-//               .findFirst();
-
-//       if(carToRemove.isPresent())
-//       {
-////             carList.getCars().remove(carToRemove);
-////           carList.getCars().remove((int)carToRemove.get().getId());
-//           System.out.println( carList.getCars().remove((int)carToRemove.get().getId()));
-//
-//           return true;
-//       }
-//       else
-//       {
-//
-//           return false;
-//       }
-    }
-
-    @Override
     public boolean addedCar(Car car) {
         boolean addCar = carList.getCars().add(car);
 
@@ -94,4 +59,28 @@ public class CarServiceImp implements CarService{
             return false;
         }
     }
-}
+
+
+    @Override
+    public boolean modifiedCar(Car car) {
+        Optional<Car> isCarPresent = getCarById(car.getId());
+        if (isCarPresent.isPresent()) {
+            carList.getCars().remove(isCarPresent.get());
+            Car updatedCar = new Car(car.getBrand(), car.getModel());
+            updatedCar.setId(isCarPresent.get().getId());
+            return carList.getCars().add(updatedCar);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removedCar(long id) {
+
+
+        Optional<Car> carToRemove = getCarById(id);
+
+        return carToRemove.map(car -> carList.getCars().remove(car)).orElse(false);
+
+    }
+    }
+

@@ -31,9 +31,9 @@
 <!--    <button id="submitDelete" type="submit">Delete</button>-->
 <!--</form>-->
 
-<!--<tr th:if="${cars.isEmpty()}">-->
-<!--    <td colspan="2"> No Cars Available </td>-->
-<!--</tr>-->
+<tr th:if="${cars.isEmpty()}">
+    <td colspan="2"> No Cars Available </td>
+</tr>
 <tr th:each="car: ${cars}">
 
 
@@ -73,7 +73,12 @@
 
 </form>
 <p>===============Car by ID ============================ </p>
-
+<tr th:each="car: ${cars}">
+    <form action="#" th:action="@{'/car/{id}'(id=${car.getId()})}" th:method="get">
+        <!--            <input type="hidden" name="updateCar" value="delete" />-->
+        <button id="id" type="submit">Id</button>
+    </form>
+</tr>
 
 <!--<tr th:each="car: ${cars}">-->
 

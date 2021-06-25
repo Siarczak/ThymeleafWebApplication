@@ -10,89 +10,75 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Optional;
+
 @Controller
 public class CarController {
 
-    CarServiceImp carServiceImp;
+    CarServiceImp carService;
     Car car;
 
     @Autowired
-    public CarController(CarServiceImp carServiceImp) {
-        this.carServiceImp = carServiceImp;
+    public CarController(CarServiceImp carService) {
+        this.carService = carService;
     }
 
     @GetMapping("/car")
     public String getCar(Model model) {
-        model.addAttribute("cars", carServiceImp.getCars());
+        model.addAttribute("cars", carService.getCars());
         model.addAttribute("newCar", new Car());
         return "car";
     }
 
-    @GetMapping("/car/{id}")
-    public String getCarByID(@PathVariable long id, Model model) {
-        if (carServiceImp.getCarById(id).isPresent()) {
-            model.addAttribute("car", carServiceImp.getCarById(id));
-            return "updatecar";
 
-        }
-        else
-        {
+    @GetMapping("/car/{id}")
+    public String getCarById(@PathVariable long id, Model model) {
+        Optional<Car> optionalCar = carService.getCarById(id);
+
+        if(optionalCar.isPresent()){
+            model.addAttribute("car", optionalCar.get());
+            return "updatecar";
+        } else {
             return "redirect:/error";
         }
-
-
     }
-
-//
-//    @GetMapping("/car/{id}")
-//    public String getCarById(@PathVariable long id, Model model) {
-//        Optional<Car> optionalCar = carServiceImp.getCarById(id);
-//
-//        if(optionalCar.isPresent()){
-//            model.addAttribute("car", optionalCar.get());
-//            return "updatecar";
-//        } else {
-//            return "redirect:/error";
-//        }
-//    }
 
 
 
 
     @PostMapping("/add")
     public String addCar(@ModelAttribute Car car) {
-        car.setId(carServiceImp.getCars().size() + 1);
-        carServiceImp.getCars().add(car);
+        car.setId(carService.getCars().size() + 1);
+        carService.getCars().add(car);
 
         return "redirect:/car";
 
 
     }
+
+
+
     @PostMapping("/updatecar")
-    public String updateCar(@ModelAttribute Car car)
-    {
+    public String modifyCar(@ModelAttribute Car carToModify) {
 
-        carServiceImp.modifiedCar(car);
-        return "redirect:/car";
+        System.out.println(carService.modifiedCar(carToModify));
+        if (carService.modifiedCar(carToModify)) {
 
+
+            return "redirect:/car";
+        }
+
+        return "redirect:/error";
     }
-
 
 
     @PostMapping("/delete/{id}")
     public String deleteCar(@PathVariable long id) {
 
-//        System.out.println(carServiceImp.getCars());
-//        carServiceImp.removedCar(carToDelete.getId());
-//        System.out.println( carServiceImp.removedCar(carToDelete.getId()));
-//        System.out.println(carServiceImp.getCars());
 
 
-        if (carServiceImp.removedCar(id)) {
+        if (carService.removedCar(id)) {
 
-//            System.out.println(carServiceImp.getCars());
-//            System.out.println( carServiceImp.getCars().get((int)id));
-//            System.out.println(carServiceImp.getCars());
 
             return "redirect:/car";
         } else {
@@ -100,6 +86,15 @@ public class CarController {
             return "redirect:/error";
         }
     }
+
+    //        System.out.println(carServiceImp.getCars());
+//        carServiceImp.removedCar(carToDelete.getId());
+//        System.out.println( carServiceImp.removedCar(carToDelete.getId()));
+//        System.out.println(carServiceImp.getCars());
+
+//            System.out.println(carServiceImp.getCars());
+//            System.out.println( carServiceImp.getCars().get((int)id));
+//            System.out.println(carServiceImp.getCars());
 
 
 

@@ -5,7 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-Car by id
+<h4> cars:</h4>
+<div th:each="exam : ${subject.exam}">
+    <h4 th:text="${exam.examTitle}"/>
+
+    <a th:href="@{/editExam.html(id=${exam.examId})}">Edit Exam</a>
 
 
 </form>

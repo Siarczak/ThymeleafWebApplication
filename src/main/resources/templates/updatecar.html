@@ -7,6 +7,7 @@
 <body>
 
 <form th:action="@{/updatecar}" th:object="${car}"  method="post">
+    <p><input type="hidden" th:field="*{id}"></p>
     <p>Brand: <input type="text" th:field="*{brand}"></p>
     <p>Model: <input type="text" th:field="*{model}"></p>
     <p><input type="submit" value="update car"> </p>
