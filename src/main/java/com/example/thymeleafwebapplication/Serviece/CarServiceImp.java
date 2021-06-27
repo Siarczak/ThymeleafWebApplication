@@ -15,6 +15,7 @@ public class CarServiceImp implements CarService{
 
     CarList carList;
 
+
     CarServiceImp()
     {
 
@@ -52,6 +53,7 @@ public class CarServiceImp implements CarService{
 
         if(addCar)
         {
+
             return true;
         }
         else
@@ -64,12 +66,14 @@ public class CarServiceImp implements CarService{
     @Override
     public boolean modifiedCar(Car car) {
         Optional<Car> isCarPresent = getCarById(car.getId());
+
         if (isCarPresent.isPresent()) {
             carList.getCars().remove(isCarPresent.get());
             Car updatedCar = new Car(car.getBrand(), car.getModel());
             updatedCar.setId(isCarPresent.get().getId());
             return carList.getCars().add(updatedCar);
         }
+        System.out.println("modified");
         return false;
     }
 

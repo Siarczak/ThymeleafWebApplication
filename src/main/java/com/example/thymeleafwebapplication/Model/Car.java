@@ -4,16 +4,16 @@ public class Car {
 
     String brand;
     String model;
-       private long id;
+    private  long id;
     private  static long carIdCounter = 0;
 
     public Car() {
     }
 
-    public Car(String brand, String model) {
+    public Car( String brand, String model) {
         this.brand = brand;
         this.model = model;
-        this.id =++carIdCounter;
+        this.id = carIdCounter++;
     }
 
 
@@ -41,8 +41,13 @@ public class Car {
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.id = carIdCounter++;
     }
+
+
+
+
+
 
 
 
