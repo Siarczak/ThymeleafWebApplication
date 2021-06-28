@@ -17,6 +17,7 @@ public class CarController {
 
     CarServiceImp carService;
 
+
     @Autowired
     public CarController(CarServiceImp carService) {
         this.carService = carService;
@@ -32,10 +33,10 @@ public class CarController {
 
     @GetMapping("/car/{id}")
     public String getCarById(@PathVariable long id, Model model) {
-        Optional<Car> optionalCar = carService.getCarById(id);
+        Optional<Car> carById = carService.getCarById(id);
 
-        if (optionalCar.isPresent()) {
-            model.addAttribute("car", optionalCar.get());
+        if (carById.isPresent()) {
+            model.addAttribute("car", carById.get());
             return "updatecar";
         } else {
             return "redirect:/error";
@@ -45,7 +46,9 @@ public class CarController {
 
     @PostMapping("/add")
     public String addCar(@ModelAttribute Car car) {
-        car.setId(carService.getCars().size());
+
+
+        car.setId(carService.setIdToAdd());
         carService.addedCar(car);
 
         return "redirect:/car";
@@ -66,8 +69,6 @@ public class CarController {
 
         return "redirect:/error";
     }
-
-
 
 
     @PostMapping("/delete/{id}")

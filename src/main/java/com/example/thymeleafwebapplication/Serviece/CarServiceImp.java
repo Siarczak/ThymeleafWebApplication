@@ -11,23 +11,23 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CarServiceImp implements CarService{
+public class CarServiceImp implements CarService {
 
     CarList carList;
 
 
-    CarServiceImp()
-    {
+    CarServiceImp() {
 
 
     }
-@Autowired
+
+    @Autowired
     public CarServiceImp(CarList carList) {
         this.carList = carList;
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void prepareListOfCars(){
+    public void prepareListOfCars() {
 
         carList.getCars();
 
@@ -47,17 +47,29 @@ public class CarServiceImp implements CarService{
                 .findFirst();
     }
 
+//    @Override
+//    public boolean addedCar(Car car) {
+//        boolean addCar = carList.getCars().add(car);
+//
+//        if(addCar)
+//        {
+//
+//            return true;
+//        }
+//        else
+//        {
+//            return false;
+//        }
+//    }
+
     @Override
     public boolean addedCar(Car car) {
         boolean addCar = carList.getCars().add(car);
 
-        if(addCar)
-        {
+        if (addCar) {
 
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -65,6 +77,7 @@ public class CarServiceImp implements CarService{
 
     @Override
     public boolean modifiedCar(Car car) {
+
         Optional<Car> isCarPresent = getCarById(car.getId());
 
         if (isCarPresent.isPresent()) {
@@ -73,9 +86,24 @@ public class CarServiceImp implements CarService{
             updatedCar.setId(isCarPresent.get().getId());
             return carList.getCars().add(updatedCar);
         }
-        System.out.println("modified");
+
         return false;
     }
+
+//    @Override
+//    public boolean modifiedCar(Car car) {
+//
+//        Optional<Car> isCarPresent = getCarById(car.getId());
+//
+//        if (isCarPresent.isPresent()) {
+//            carList.getCars().remove(isCarPresent.get());
+//            Car updatedCar = new Car(car.getBrand(), car.getModel());
+//            updatedCar.setId(isCarPresent.get().getId());
+//            return carList.getCars().add(updatedCar);
+//        }
+//
+//        return false;
+//    }
 
     @Override
     public boolean removedCar(long id) {
@@ -86,5 +114,17 @@ public class CarServiceImp implements CarService{
         return carToRemove.map(car -> carList.getCars().remove(car)).orElse(false);
 
     }
+
+
+    public long setIdToAdd() {
+
+
+        return carList.idForAddMethod();
+
+
     }
+}
+
+
+
 
