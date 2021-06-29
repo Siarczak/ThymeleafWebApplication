@@ -4,15 +4,13 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body style="background-color:powderblue;">
 
-<form th:action="@{/updatecar}" th:object="${car}"  method="post">
+<form th:action="@{/updatecar}" th:object="${car}" method="post">
     <p><input type="hidden" th:field="*{id}"></p>
     <p>Brand: <input type="text" th:field="*{brand}"></p>
     <p>Model: <input type="text" th:field="*{model}"></p>
-    <p><input type="submit" value="update car"> </p>
-
-
+    <p><input type="submit" value="update car"></p>
 
 
 </form>

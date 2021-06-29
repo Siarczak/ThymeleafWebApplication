@@ -1,226 +1,98 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <style>
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button1 {
+            background-color: #ADFF2F;
+            border: none;
+            color: red;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .p1 {
+            font-family: "Lucida Console", "Courier New", monospace;
+        }
+    </style>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<h1>Lista samochodów</h1>
-
-
-
-<!--<form action="#" th:action="@{'/delete/{id}'(id=${car.getId()})}" th:method="post">-->
-<!--    <input type="hidden" name="_method" value="delete" />-->
-<!--    <button id="submitDelete" type="submit">Delete</button>-->
-<!--</form>-->
-
-<!--<P>=====Find Car by ID===========</P>-->
-<!--<form action="#" th:action="@{'/car/{id} '(id=${car.id})}"  th:method="get">-->
-<!--&lt;!&ndash;    <p>Id:<input type="text" ></p>&ndash;&gt;-->
-<!--    <button id="submitEdit" type="submit">Edit</button>-->
-<!--</form>-->
-
-<!--    <form th:action="@{/add-car}" th:object="${newCar}" method="post">-->
-<!--        <p>Brand:<input type="text" th:field="*{brand}"></p>-->
-<!--        <p>Model:<input type="text" th:field="*{model}"></p>-->
-
-<!--    <p><input type="submit" value="Find by Id"></p>-->
-
-<!--<form action="#" th:action="@{'/delete/{id}'(id=${car.getId()})}" th:method="post">-->
-<!--    <input type="hidden" name="_method" value="delete" />-->
-<!--    <button id="submitDelete" type="submit">Delete</button>-->
-<!--</form>-->
-
+<body class="p1" style="background-color:powderblue;">
+<h1 class="p1"> Lista samochodów</h1>
 <tr th:if="${cars.isEmpty()}">
-    <td colspan="2"> No Cars Available </td>
+    <td colspan="2"> No Cars Available</td>
 </tr>
 
 
 <tr th:each="car: ${cars}">
 
 
-    <td>Car id: </td>  <td th:text= "${car.getId}"/></td>
+    <td>Car id:</td>
+    <td th:text="${car.getId}"/>
+    </td>
 
     <br>
-    <td>Car brand: </td> <td th:text="${car.getBrand()}"/></td>
+    <td>Car brand:</td>
+    <td th:text="${car.getBrand()}"/>
+    </td>
     <br>
-    <td>Car model: </td> <td th:text="${car.getModel()}"/></td>
+    <td>Car model:</td>
+    <td th:text="${car.getModel()}"/>
+    </td>
     <td>
         <br>
         <form action="#" th:action="@{'/delete/{id}'(id=${car.getId()})}" th:method="post">
 
-            <input type="hidden" name="_method" value="delete" />
-            <button id="submitDelete" type="submit">Delete</button>
+            <input type="hidden" name="_method" value="delete"/>
+            <button id="submitDelete" class="button1" type="submit">Delete</button>
         </form>
 
 
         <form action="#" th:action="@{'/car/{id}'(id=${car.getId()})}" th:method="get">
-<!--            <input type="hidden" name="updateCar" value="delete" />-->
-            <button id="update" type="submit">Update</button>
+            <!--            <input type="hidden" name="updateCar" value="delete" />-->
+            <button id="update" class="button" type="submit">Update</button>
         </form>
-        <p>======================================================= </p>
-
-
+        <p style="background-color:tomato;">=================================================</p>
 
 
 </tr>
 
 
-<p>===============Add Car============================ </p>
+<p style="background-color:#F0E68C;">===============Add Car============================ </p>
 
 <form th:action="@{/add}" th:object="${newCar}" method="post">
     <p>Brand: <input type="text" th:field="*{brand}"></p>
     <p>Model: <input type="text" th:field="*{model}"></p>
-<p><input type="submit" value="add new car"> </p>
+    <p><input type="submit" value="add new car"></p>
 
 </form>
-<p>===============Car by ID ============================ </p>
+<p style="background-color:#DDA0DD;">===============Car by ID ============================ </p>
 <tr th:each="car: ${cars}">
-<form action="#" th:action="@{'/car/{id}'(id=${car.getId()})}" th:method="get">
+    <form action="#" th:action="@{'/car/{id}'(id=${car.getId()})}" th:method="get">
 
-<!--    <p>Today is: <span th:text="${car.getId()}">ID of car</span></p>-->
-    Car of Id <span th:text="${car.getId()}">Get Car</span>
-    <button id="submit" type="submit">Get car</button>
-</form>
+        <!--    <p>Today is: <span th:text="${car.getId()}">ID of car</span></p>-->
+        Car of Id <span th:text="${car.getId()}">Get Car</span>
+        <button id="submit" type="submit">Get car</button>
+    </form>
 
 </body>
 </html>
-
-
-<!--    <form action="#" th:action="@{'/delete/{id}'(id=${car.getId()})}" th:method="post">-->
-<!--        <input type="hidden" name="_method" value="delete" />-->
-<!--        <button id="submitDelete" type="submit">Delete</button>-->
-<!--    </form>-->
-<!--    <form th:action="@{/deleteCar/{id} (id=${car.getId()})}" th:object="${car}" method="post">-->
-<!--        <input type="hidden" name="id" th:value="${car.id}">-->
-<!--        <input type="hidden" name="brand" th:value="${car.getBrand()}">-->
-<!--        <input type="hidden" name="model" th:value="${car.getModel()}">-->
-
-<!--        <button type="submit">Delete</button>-->
-<!--    </form>-->
-<!--    <p><input type="submit" value="add new car"></p>-->
-
-<!--<form th:action="@{/add-car}" th:object="${newCar}" method="post">-->
-<!--    <p>Brand:<input type="text" th:field="*{brand}"></p>-->
-<!--    <p>Model:<input type="text" th:field="*{model}"></p>-->
-<!--    <br>-->
-<!--        <form th:action="@{/update-car/id}" th:object="${carById}" method="post">-->
-<!--            <p><input type="submit" value="Edit"></p></form>-->
-<!--    <br>-->
-<!--    <form action="#" th:action="@{/deleteCar/{id} (id=${car.getId()})}"  th:object="${car}" th:method="delete">-->
-
-<!--        <input type="submit"  th:field="*{id}" value="delete" />-->
-<!--        -->
-
-        <!--        <p><input type="submit" value="Delete"></p></form>-->
-        <!--        <p>ID:<input type="text" th:field="*{id}"></p>-->
-<!--        <button type="submit" id="submitButton"> </button>-->
-<!--    </form>-->
-
-
-
-<!--    <form th:action="@{/deleteCar/{id} (id=${car.getId()})}" th:object="${car}" method="post">-->
-<!--        <input type="hidden" name="id" th:value="${car.id}">-->
-<!--        <input type="hidden" name="brand" th:value="${car.getBrand()}">-->
-<!--        <input type="hidden" name="model" th:value="${car.getModel()}">-->
-
-<!--        <button type="submit">Delete</button>-->
-<!--    </form>-->
-
-<!--    <form action="#" th:action="@{/deleteCar/{id} (id=${car.getId()})}" th:method="post" >-->
-<!--        <input type="hidden" name="deleteCar" th:field="${car}" />-->
-<!--        <button type="submit" id="submitButton"> </button>-->
-<!--    </form>-->
-
-<!--    <br>-->
-
-<!--    <p>======================================================= </p>-->
-
-<!--        <form action="#" th:action="@{/deleteCar/{id} (id=${car.getId()})}" th:method="delete" >-->
-<!--                    <input type="hidden" name="deleteCar" th:value="${car}" />-->
-<!--            <button id="submitDelete" type="submit">Delete</button>-->
-<!--        </form>-->
-
-<!--    <form action="#" th:action="@{'/delete/{id}'(id=${car.getId()})}" th:method="post">-->
-<!--        <input type="hidden" name="_method" value="delete" />-->
-<!--        <button id="submitDelete" type="submit">Delete</button>-->
-<!--    </form>-->
-
-<!--        <form action="#" th:action="@{'/car/{id} '(id=${car.id})}"  th:method="get">-->
-<!--            &lt;!&ndash;    <p>Id:<input type="text" ></p>&ndash;&gt;-->
-<!--            <button id="submitEdit" type="submit">Edit</button>-->
-<!--        </form>-->
-
-
-<!--    </td>-->
-<!--</tr>-->
-<!--<P>=====ADD CAR===========</P>-->
-<!--<form th:action="@{/add-car}" th:object="${newCar}" method="post">-->
-<!--    <p>Brand:<input type="text" th:field="*{brand}"></p>-->
-<!--    <p>Model:<input type="text" th:field="*{model}"></p>-->
-
-
-
-<!--    <p><input type="submit" value="add new car"></p>-->
-<!--</form>-->
-
-
-
-<!--<form action="#" th:action="@{'/deleteCar/{id}'(id=${car.id})}"  th:object="${car}" method="delete">-->
-<!--    &lt;!&ndash;        <p><input type="submit" value="Delete"></p></form>&ndash;&gt;-->
-<!--    <input type="submit"  th:field="*{id}" value="delete" />-->
-<!--    &lt;!&ndash;        <button type="submit" id="submitButton"> </button>&ndash;&gt;-->
-<!--    <br>-->
-
-<!--    <p>======================================================= </p>-->
-
-<!--</form>-->
-
-<!--<P>=====Delete CAR===========</P>-->
-<!--<form action="#" th:action="@{'/delete/{id}'(id=${foo.id})}" th:method="delete" >-->
-<!--<input type="hidden" name="_method" value="delete" />-->
-<!--<button type="submit" id="submitButton"> </button>-->
-<!--</form>-->
-
-<!--<P>=====UPDATE CAR===========</P>-->
-<!--<form th:action="@{/update-car}" th:object="${newCar}" method="post">-->
-<!--    <p>Id:<input type="text" th:field="*{id}"></p>-->
-<!--    <p>Brand:<input type="text" th:field="*{brand}"></p>-->
-<!--    <p>Model:<input type="text" th:field="*{model}"></p>-->
-
-
-<!--    <p><input type="submit" value="update car"></p>-->
-<!--</form>-->
-
-
-<!--<form th:action="@{/car/{id}}" th:object="${cars}" method="get">-->
-<!--    <p>CarID:<input type="text" th:field="*{id}"></p>-->
-
-<!--    <p><input type="submit" value="add new car"></p>-->
-
-
-<!--</form>-->
-
-<!--<form th:action="@{/add-car}" th:object="${newCar}" method="post">-->
-<!--    <p>Brand:<input type="text" th:field="*{brand}"></p>-->
-<!--    <p>Model:<input type="text" th:field="*{model}"></p>-->
-<!--    <p><input type="submit" value="add new car"></p>-->
-
-
-
-<!--</form>-->
-
-<!--<form th:action="@{/getCarById}"  th:object="${car}">-->
-<!--    <p>ID:<input type="text" th:field="*{id}"></p>-->
-
-
-<!--    <p><input type="submit" value="car by ID"></p>-->
-
-<!--</form>-->
-
-
-<!--<form th:action="@{/car}">-->
-<!--    <input type="text" th:name="id"/>-->
-<!--    <input type="submit" value="car by ID"/>-->
-<!--</form>-->
 

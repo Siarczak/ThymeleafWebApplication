@@ -2,8 +2,8 @@ package com.example.thymeleafwebapplication.Model;
 
 public class Car {
 
-    String brand;
-    String model;
+    private String brand;
+    private String model;
     private long id;
     private static long carIdCounter = 0;
 
@@ -43,9 +43,6 @@ public class Car {
         this.id = id;
     }
 
-    public static long getCarIdCounter() {
-        return carIdCounter;
-    }
 
     @Override
     public String toString() {
