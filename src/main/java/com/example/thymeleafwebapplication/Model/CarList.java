@@ -16,9 +16,9 @@ public class CarList {
 
 
         Car car1 = new Car("Romero", "Alfa");
-        Car car2 = new Car("Volkswagen", "Golf");
-        Car car3 = new Car("Skoda", "Octavian");
-        Car car4 = new Car("BMW", "3");
+        Car car2 = new Car("Wieswagen", "Golf");
+        Car car3 = new Car("Szkoda", "Octavian");
+        Car car4 = new Car("BedzieszMialWydatki", "3");
         cars = new ArrayList<>();
         cars.add(car1);
         cars.add(car2);

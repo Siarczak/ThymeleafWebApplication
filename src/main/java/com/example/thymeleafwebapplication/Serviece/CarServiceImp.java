@@ -47,21 +47,6 @@ public class CarServiceImp implements CarService {
                 .findFirst();
     }
 
-//    @Override
-//    public boolean addedCar(Car car) {
-//        boolean addCar = carList.getCars().add(car);
-//
-//        if(addCar)
-//        {
-//
-//            return true;
-//        }
-//        else
-//        {
-//            return false;
-//        }
-//    }
-
     @Override
     public boolean addedCar(Car car) {
         boolean addCar = carList.getCars().add(car);
@@ -90,20 +75,6 @@ public class CarServiceImp implements CarService {
         return false;
     }
 
-//    @Override
-//    public boolean modifiedCar(Car car) {
-//
-//        Optional<Car> isCarPresent = getCarById(car.getId());
-//
-//        if (isCarPresent.isPresent()) {
-//            carList.getCars().remove(isCarPresent.get());
-//            Car updatedCar = new Car(car.getBrand(), car.getModel());
-//            updatedCar.setId(isCarPresent.get().getId());
-//            return carList.getCars().add(updatedCar);
-//        }
-//
-//        return false;
-//    }
 
     @Override
     public boolean removedCar(long id) {
